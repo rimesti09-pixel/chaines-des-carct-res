@@ -28,11 +28,11 @@ switch (choix) {
       break;
 
     case "3":
-      console.log(" Vous avez choisi: Afficher les candidats");
+      afficherCandidats();
       break;
 
     case "4":
-      console.log("Vous avez choisi: Voter");
+      voter ();
       break;
 
     case "5":
@@ -80,7 +80,7 @@ function ajouterCandidat() {
     candidats.push(candidat);
     console.log("candidat ajouter avec succés");
 };
-// Ajout des plusieurs candidats
+
 
 function ajouterPlusieursCandidats() {
 
@@ -109,4 +109,95 @@ function ajouterPlusieursCandidats() {
         };
     }
   }
+function afficherCandidats() {
+  if (candidats.length === 0) {
+    console.log("Aucun candidat enregistré pour le moment.");
+    return;
+  }
 
+  console.log("OPTIONS D'AFFICHAGE ");
+  console.log("1. Afficher tous les candidats");
+  console.log("2. Trier par votes");
+  console.log("3. Filtrer par parti politique");
+  
+  let sousChoix = prompt("Votre choix (1-3) : ");
+
+
+
+  if (sousChoix === "1") {
+  for (let i=0; i < candidats.length;i++) {
+    console.log(candidats[i].nom );
+    console.log(candidats[i].prenom);
+    console.log("Votes:");
+    console.log(candidats[i].electeurs.length);
+  }
+}
+else if(sousChoix ==="2"){
+  for (let i = 0; i < candidats.length; i++ ){
+    for (let j = i + 1 ; j < candidats.length;j++){
+      let candidatTemporaire = candidats[i];
+       candidats[i] = candidats[j];
+       candidats[j] = candidatTemporaire;
+    }
+  }
+}
+  for (let i=0; i < candidats.length;i++) {
+    console.log(candidats[i].nom );
+    console.log(candidats[i].prenom);
+    console.log("Votes:");
+    console.log(candidats[i].electeurs.length);
+  }
+} if (sousChoix === "3"){
+    let parti = prompt ("Parti : ");
+    for (let i=0; i < candidats.length;i++) {
+      if (candidats[i].partiPolitique === parti){
+        console.log(candidats[i].nom );
+        console.log("parti:");
+        console.log(candidats[i].partiPolitique );
+      }
+    }
+  }
+else{
+  console.log("choix invalide !");
+
+}
+
+function voter() {
+    if (candidats.length === 0) {
+        console.log("Aucun candidat disponible pour le vote.");
+        return;
+    }
+
+    let cinElecteur = prompt("Entrez votre CIN (Électeur) : ");
+    let dejaVote = false;
+    for (let i = 0; i < candidats.length; i++) {
+        for (let j = 0; j < candidats[i].electeurs.length; j++) {
+            if (candidats[i].electeurs[j] === cinElecteur) {
+                dejaVote = true;
+                break;
+            }
+        }
+        if (dejaVote) break;
+    }
+
+    if (dejaVote) {
+        console.log("Vous avez déjà voté et vous n'avez pas le droit de modifier votre vote ni de voter à nouveau");
+        return;
+    }
+
+    let cinCandidat = prompt("Entrez le CIN du candidat pour lequel vous voulez voter : ");
+    let candidatTrouve = false;
+
+    for (let i = 0; i < candidats.length; i++) {
+        if (candidats[i].cin === cinCandidat) {
+            candidats[i].electeurs.push(cinElecteur);
+            console.log("Votre vote a été enregistré avec succès !");
+            candidatTrouve = true;
+            break;
+        }
+    }
+
+    if (!candidatTrouve) {
+        console.log("Candidat non trouvé avec ce CIN.");
+    }
+}
