@@ -20,11 +20,11 @@ do {
     
 switch (choix) {
     case "1":
-      console.log(" Vous avez choisi: Ajouter un candidat");
+      ajouterCandidat();
       break;
 
     case "2":
-      console.log("Vous avez choisi: Ajouter plusieurs candidats");
+      ajouterPlusieursCandidats();
       break;
 
     case "3":
@@ -60,3 +60,53 @@ switch (choix) {
   }
 
 }while(choix !== "9")
+
+function ajouterCandidat() {
+        console.log("Ajouter un nouveau candidat ")
+    let cin = prompt(" CIN: ");
+    let nom = prompt(" nom: ");
+    let prenom = prompt(" prenom: ");
+    let partiPolitique = prompt("Entrez la parti politique (ou indépendant): ");
+    let age = Number(prompt("age: "));
+
+    let candidat = {
+        cin: cin,
+        nom: nom,
+        prenom: prenom,
+        partiPolitique: partiPolitique,
+        age: age,
+        electeurs: []
+    };
+    candidats.push(candidat);
+    console.log("candidat ajouter avec succés");
+};
+// Ajout des plusieurs candidats
+
+function ajouterPlusieursCandidats() {
+
+    console.log("Ajouter plusieurs candidats");
+    let number = Number(prompt("Combien de candidats voulez-vous ajouter? : "));
+    for (let i = 0; i < number; i++) {
+        console.log(`Candidat N°${i + 1}`);
+        let cin = prompt(" CIN: ");
+        let nom = prompt("nom: ");
+        let prenom = prompt("prenom: ");
+        let partiPolitique = prompt("parti politique: ");
+        let age = Number(prompt("age : "));
+ {
+        let candidat = {
+        
+            cin: cin,
+            nom: nom,
+            prenom: prenom,
+            partiPolitique: partiPolitique,
+            age: age,
+            electeurs: []
+        };
+            candidats.push(candidat)
+                console.log("candidat ajouter avec succés");
+
+        };
+    }
+  }
+
